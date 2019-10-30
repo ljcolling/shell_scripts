@@ -1,0 +1,11 @@
+#!/bin/bash
+
+FILES=scripts/*
+
+for f in $FILES
+do
+   ff=${f##*/}
+   echo "installing script $ff"
+   chmod 777 $f
+   ln $f /usr/local/bin/$ff
+done
