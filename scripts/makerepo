@@ -1,0 +1,13 @@
+
+#!/bin/bash
+
+file=./README.md
+if [ -e "$file" ]; then
+	hub init
+	hub create -poc
+	git add . 
+	git commit -m "Created from bash"
+	git push --set-upstream origin master
+else
+	echo "First create a README.md file"
+fi
