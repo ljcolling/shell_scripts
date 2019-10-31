@@ -1,0 +1,32 @@
+#!/bin/bash
+current="."
+
+if [ $1 == "" ]
+then
+	echo "no folder specified!"
+	exit
+fi
+
+
+if [ "$1" == "$current" ]
+then
+	folder=$(pwd)
+fi
+
+echo "backing up $folder..."
+
+archive=$(basename $folder)
+
+echo "file will be called $archive"
+dt=$(date '+%d-%m-%Y_%H-%M-%S');
+
+fullarchive="$HOME"
+fullarchive+="/dropbox/archives/"
+fullarchive+="$archive"
+fullarchive+="_$dt.tar.gz"
+
+echo "$fullarchive"
+
+tar -zcvf $fullarchive $folder
+
+
