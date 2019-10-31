@@ -1,6 +1,4 @@
-
 #!/bin/bash
-
 file=./README.md
 if [ -e "$file" ]; then
 	hub init
