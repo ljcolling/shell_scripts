@@ -1,5 +1,5 @@
 #!/bin/bash
 
-LOCAL=pwd
-REMOTE=/home/lincoln/$pwd
-docker run -v `pwd`:/home/lincoln/documents -p 8787:8787 -e USER=lincoln -e PASSWORD=chuthung rocker/verse
+LOCAL=`pwd`
+REMOTE=`basename $LOCAL`
+docker run -v $LOCAL:/home/lincoln/documents/$REMOTE -p 8787:8787 -e USER=lincoln -e PASSWORD=chuthung rocker/verse
