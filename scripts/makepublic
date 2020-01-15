@@ -1,0 +1,5 @@
+#!/bin/bash
+
+REPO_NAME="repos/ljcolling/$1"
+
+hub api $REPO_NAME -F "private=false"

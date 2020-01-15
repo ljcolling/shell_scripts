@@ -1,0 +1,3 @@
+#!/bin/bash
+
+perl -ne 'if(m/ljcolling\/(.*?)\.git/){print $1 ."\n";}' .git/config

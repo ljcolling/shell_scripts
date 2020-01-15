@@ -3,9 +3,16 @@ file=./README.md
 if [ -e "$file" ]; then
 	hub init
 	hub create -poc
-	git add . 
+	git add .
 	git commit -m "Created from bash"
 	git push --set-upstream origin master
+elif [[ $1='-f' ]]; then
+  echo forcing!
+  hub init
+  hub create -poc
+  git add .
+  git commit -m "initial commit"
+  git push --set-upstream origin master
 else
 	echo "First create a README.md file"
 fi

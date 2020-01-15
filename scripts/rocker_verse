@@ -1,5 +1,5 @@
 #!/bin/bash
-
+port="${1:-8787}"
 LOCAL=`pwd`
 REMOTE=`basename $LOCAL`
-docker run -v $LOCAL:/home/lincoln/documents/$REMOTE -p 8787:8787 -e USER=lincoln -e PASSWORD=chuthung rocker/verse
+docker run -v $LOCAL:/home/lincoln/documents/$REMOTE -p $port:8787 -e USER=lincoln -e PASSWORD=chuthung rocker/verse
