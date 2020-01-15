@@ -1,0 +1,3 @@
+#!/bin/bash
+
+perl -ne 'if(m/\.com\:(.*?)\.git/){print "https://github.com/".$1 ."\n";}' .git/config
