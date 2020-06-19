@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for file in $(git ls-files --others --exclude-standard); do
+   mv $file $1;
+done
