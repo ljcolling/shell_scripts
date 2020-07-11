@@ -21,7 +21,7 @@ echo "file will be called $archive"
 dt=$(date '+%d-%m-%Y_%H-%M-%S');
 
 fullarchive="$HOME"
-fullarchive+="/dropbox/archives/"
+fullarchive+="/iCloud/backups/"
 fullarchive+="$archive"
 fullarchive+="_$dt.tar.gz"
 
