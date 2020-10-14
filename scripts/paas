@@ -9,10 +9,12 @@ require 'colorize'
 require 'whirly'
 require 'paint'
 
+
 $current_dir = Dir.pwd
 config_file = File.join($current_dir,"build.yaml")
 
 $config = YAML.load(File.read(config_file))
+
 
 
 class Slides < Thor
@@ -64,6 +66,22 @@ class Slides < Thor
         puts "Done!".light_blue
 
     end
+
+
+    desc "template", "generate a template for new materials"
+    def deploy
+        puts "generating template".red
+        Whirly.start spinner: "line", 'color': true, status: "Creating..." do
+
+        print "Create Lecture (S)lides, (H)andouts, (R)ecordings, or (W)orksheet"
+        type = gets.chomp
+
+
+        end
+
+    end
+    
+
 
 end
 
