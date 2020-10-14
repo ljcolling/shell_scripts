@@ -1,0 +1,86 @@
+#!/Users/lc663/.rbenv/shims/ruby
+
+# require gems
+require 'fileutils'
+require 'yaml'
+require 'thor'
+require 'git'
+require 'colorize'
+require 'whirly'
+require 'paint'
+
+def load_config
+    $current_dir = Dir.pwd
+    config_file = File.join($current_dir,"build.yaml")
+    $config = YAML.load(File.read(config_file))
+end
+
+
+class Slides < Thor
+    
+
+    desc "build", "build the slides"
+    def build
+        puts "building materials...".red
+        Whirly.start spinner: "line", color: true, status: "Building..." do 
+            folder =  File.join($current_dir,$config['output_folder']) 
+            FileUtils.remove_dir(folder, force: true)
+
+            src_files =  Dir["**"]
+    
+            FileUtils.mkdir_p folder
+
+            # remove ignored filed from .buildignore
+            ignore_files = File.read(".buildignore").split("\n")
+            ignore_files.each {|f| src_files.delete(f)}
+
+            # knit the document
+            system($config['build_command'] + " > /dev/null")
+
+            # copy files to output folder
+            src_files.each {|file| FileUtils.cp_r "./" + file, folder + "/" + file }
+        
+        end
+        puts "Done!".light_blue
+
+    end
+
+
+    desc "deploy", "add to the git repo"
+    def deploy
+        puts "deploying materials...".red
+        Whirly.start spinner: "line", color: true, status: "Deploying..." do 
+            # clone the repo 
+            g = Git.clone($config['repository'],'temp')
+
+            FileUtils.mkdir_p "./temp/" + $config['deploy_folder']
+            FileUtils.cp_r "./" + $config['output_folder'],   "./temp/" + $config['deploy_folder']  + "/"
+
+            g.add(".")
+            g.commit("added materials")
+            g.push()
+            FileUtils.remove_dir("./temp", force: true)
+
+        end
+        puts "Done!".light_blue
+
+    end
+
+
+    desc "template", "generate a template for new materials"
+    def deploy
+        puts "generating template".red
+        Whirly.start spinner: "line", 'color': true, status: "Creating..." do
+
+        print "Create Lecture (S)lides, (H)andouts, (R)ecordings, or (W)orksheet"
+        type = gets.chomp
+
+
+        end
+
+    end
+    
+
+end
+
+Slides.start(ARGV)
